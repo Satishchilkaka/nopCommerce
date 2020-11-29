@@ -1,0 +1,11 @@
+{
+    "reporterEnabled": "mochawesome",
+    "mochawesomeReporterOptions": {
+      "reportDir": "cypress/reports",
+      "quiet": true,
+      "overwrite": false,
+      "html": true,
+      "json": true
+    },
+    "baseURL": "https://frontend.nopcommerce.com"
+  }

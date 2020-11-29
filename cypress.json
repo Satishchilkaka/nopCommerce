@@ -1,0 +1,18 @@
+{
+    "baseUrl": "https://frontend.nopcommerce.com",
+    "viewportWidth": 1300,
+    "viewportHeight": 900,
+    "watchForFileChanges": false,
+    "defaultCommandTimeout": 9000,
+    "pageLoadTimeout": 30000,
+    "responseTimeout": 10000,
+    "video": false,
+    "projectId": "noP",
+    "reporter": "cypress-multi-reporters",
+    "reporterOptions": {
+        "configFile": "reporterOpts.json"
+    },
+
+    "screenshotsFolder": "./cypress/snapshots/actual"
+
+}
