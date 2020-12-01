@@ -15,19 +15,20 @@ const getIframeBody = () => {
 
         .then(cy.wrap)
 }
+
 describe('Verify search and advance search', () => {
+
+    let randomSearch = faker.random.alphaNumeric(5)
     beforeEach(() => {
         cy.visit('')
     })
 
+    describe('Home Search buttn', function () {
 
-    describe.skip('Home Search buttn', function () {
 
-
-        it('navigate', function () {
+        it('Search input field', function () {
 
             search.getSearch()
-
 
         })
 
@@ -57,15 +58,13 @@ describe('Verify search and advance search', () => {
                         //expect(this.windowAlert).to.be.calledWith('Please enter some search keyword')
                     })
             })
-
-
         })
 
         it('Search a random term', () => {
 
             search.getSearch()
 
-            getIframeBody().find('#small-searchterms').type(faker.random.alphaNumeric(3))
+            getIframeBody().find('#small-searchterms').type(randomSearch)
 
             search.clickSearchButton()
             cy.wait(2000)
@@ -150,10 +149,7 @@ describe('Verify search and advance search', () => {
 
             })
 
-            getIframeBody().within(() => {
-                cy.get('.product-grid').should('be.visible');
-
-            })
+            searchAsserations.getResults()
 
             getIframeBody().within(() => {
                 cy.get('.search-text').clear()
@@ -165,7 +161,7 @@ describe('Verify search and advance search', () => {
         it('Search multiple words in the search filed', () => {
             let Searchterm = faker.commerce.productName()
 
-            search.searchTerm(Searchterm)
+            search.search(Searchterm)
 
             searchAsserations.storesearchAssertions()
 
@@ -173,7 +169,7 @@ describe('Verify search and advance search', () => {
 
         it('Search product First word last and Last word first', () => {
             let term = 'Book Apple'
-            search.searchTerm(term)
+            search.search(term)
             searchAsserations.storesearchAssertions()
         })
 
@@ -199,7 +195,7 @@ describe('Verify search and advance search', () => {
         it('More relevant products for the search term', () => {
 
             let searchWord = 'Apple MacBook Pro 13-inch'
-            search.searchTerm(searchWord)
+            search.search(searchWord)
             getIframeBody().within(() => {
                 cy.get('.product-title').then(($pName) => {
                     expect($pName).to.have.text(searchWord)
@@ -211,7 +207,7 @@ describe('Verify search and advance search', () => {
 
         it('Search any one-word match with product name', () => {
             let searchWord = 'MacBook'
-            search.searchTerm(searchWord)
+            search.search(searchWord)
             getIframeBody().within(() => {
                 cy.get('.product-title').then(($pName) => {
 
@@ -225,7 +221,7 @@ describe('Verify search and advance search', () => {
         it('Search upper and lower case combination', () => {
 
             let searchWord = 'MACBook'
-            search.searchTerm(searchWord)
+            search.search(searchWord)
             getIframeBody().within(() => {
                 cy.get('.product-grid').should('be.visible');
 
@@ -237,12 +233,195 @@ describe('Verify search and advance search', () => {
 
     describe('Verify advance search', () => {
 
+        let productName = 'Book';
+
+
         it('Click on advance search', () => {
 
+            search.search(randomSearch)
             searchAsserations.storesearchAssertions()
 
-            search.navigateToAdvanceSearchInValidProductName(faker.random.alphaNumeric(3))
+            search.navigateToAdvanceSearchInValidProductName(randomSearch)
+
+            searchAsserations.advancedSearchAssertions()
+
         })
+
+        it('Search with the empty  search term in advance search', () => {
+
+            search.navigateToAdvanceSearchInValidProductName(randomSearch)
+
+            getIframeBody().within(() => {
+                cy.get('.search-button').click()
+                cy.wait(2000)
+
+            })
+            searchAsserations.getadvancedSearchWarning()
+        })
+
+        it('advance search input field with placeholder text', () => {
+
+            search.navigateToAdvanceSearchInValidProductName(randomSearch)
+
+            getIframeBody().find('#q').should('have.attr', 'placeholder', 'Enter your search item here')
+
+        })
+
+        it('Search one word in advance search', () => {
+
+            let existingProductName = 'Apple MacBook Pro 13-inch'
+
+            search.navigateToAdvanceSearchInValidProductName(randomSearch)
+
+            getIframeBody().within(() => {
+                cy.get('#q').type(existingProductName)
+            })
+
+            getIframeBody().within(() => {
+                cy.get('.search-button').click()
+                cy.wait(2000)
+
+            })
+
+            searchAsserations.getResults()
+
+        })
+
+        it('Un check the advance search check box', () => {
+
+            search.navigateToAdvanceSearchInValidProductName(randomSearch)
+
+            searchAsserations.advancedSearchAssertions()
+
+            getIframeBody().within(() => {
+                cy.get('#adv').click({ force: true })
+            })
+
+            searchAsserations.uncheckAdvancedSearchAssertion()
+
+        })
+
+        it('Verify all category values', () => {
+
+            search.navigateToAdvanceSearchInValidProductName(randomSearch)
+
+            searchAsserations.getCategoryValues()
+
+        })
+        it('Verify manufacture values', () => {
+
+            search.navigateToAdvanceSearchInValidProductName(randomSearch)
+            searchAsserations.getManufactureValues()
+
+        })
+
+        it('Verify Catergory with Manufature values', () => {
+            let productNames = 'Cam'
+
+            search.navigateToAdvanceSearchInValidProductName(randomSearch)
+
+            searchAsserations.getCatergoryWithManufatureValues(productNames)
+
+            searchAsserations.getResults()
+            getIframeBody().within(() => {
+                cy.get('.product-title').then(($pName) => {
+
+                    expect($pName).to.contain(productName)
+                })
+
+            })
+
+        })
+
+        it('Search based on Price range', () => {
+
+            search.navigateToAdvanceSearchInValidProductName(randomSearch)
+
+            searchAsserations.beforePriceRange(productName)
+            searchAsserations.afterPriceRange()
+
+        })
+
+        it('Choose strings as price', () => {
+
+
+            search.navigateToAdvanceSearchInValidProductName(randomSearch)
+
+            searchAsserations.priceAsStrings(productName)
+            searchAsserations.resultsNotVisible()
+
+        })
+
+        it('Apply Search In product descriptions', () => {
+
+            search.navigateToAdvanceSearchInValidProductName(randomSearch)
+            searchAsserations.productDescriptions()
+        })
+
+    })
+
+    describe('Filters and results', () => {
+        let productName = 'Book';
+        const pName = 'Apple MacBook Pro 13-inch'
+
+        it('Apply sort filter', () => {
+
+            search.search(productName)
+            search.sortBy()
+
+        })
+
+        it('Results for page', () => {
+
+            search.search(productName)
+            search.ResultsForPage()
+
+        })
+
+        it('Grid view layout icon', () => {
+
+            search.search(productName)
+            search.GridViewLayout()
+
+        })
+
+        it('Search results', () => {
+
+            search.search(productName)
+            searchAsserations.getResults()
+
+            getIframeBody().within(() => {
+
+                cy.get('.item-box').then(($el) => {
+                    expect($el).to.have.length(4)
+
+                })
+
+            })
+
+        })
+
+        it('Navigate to the product page using image', () => {
+
+
+            search.search(pName)
+            search.clickByPImage()
+            search.navigateToNewpage(pName)
+
+
+
+        })
+
+        it('Navigate to the product page using name', () => {
+
+
+            search.search(pName)
+            search.clickByPName(pName)
+            search.navigateToNewpage(pName)
+
+
+        })
+
     })
 
 })

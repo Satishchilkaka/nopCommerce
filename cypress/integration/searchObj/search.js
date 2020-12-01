@@ -1,13 +1,7 @@
-
 const getIframeDocument = () => {
     return cy
         .get('iframe')
-        // Cypress yields jQuery element, which has the real
-        // DOM element under property "0".
-        // From the real DOM iframe element we can get
-        // the "document" element, it is stored in "contentDocument" property
-        // Cypress "its" command can access deep properties using dot notation
-        // https://on.cypress.io/its
+
         .its('0.contentDocument').should('exist')
 }
 const getIframeBody = () => {
@@ -15,6 +9,11 @@ const getIframeBody = () => {
         .its('body').should('not.be.undefined')
 
         .then(cy.wrap)
+}
+
+function waitforLoad() {
+    let loadPage = cy.wait(2000);
+    return loadPage
 }
 
 function getSearch() {
@@ -27,21 +26,113 @@ function clickSearchButton() {
     getIframeBody().find('.search-box-button').click()
 }
 
-function searchTerm(sTerm) {
+function search(sTerm) {
 
     getIframeBody().within(() => {
         cy.get('#small-searchterms').type(sTerm)
 
         cy.get('.search-box-button').click()
-        cy.wait(2000)
+        cy.wait(1000)
     })
 
 }
 
 function navigateToAdvanceSearchInValidProductName(sTerm) {
+    getIframeBody().within(() => {
+        cy.get('#small-searchterms').type(sTerm)
 
-      getIframeBody().within(() => {
-        cy.get('[for="q"]').click()
+        cy.get('.search-box-button').click()
+        cy.wait(1000)
+    })
+
+    getIframeBody().within(() => {
+        cy.get('#adv').click({ force: true })
+    })
+    getIframeBody().within(() => {
+        cy.get('#q').clear()
+        cy.wait(1000)
+
+    })
+
+
+}
+
+function sortBy() {
+    getIframeBody().within(() => {
+        cy.get('.product-sorting').should('contain', 'Sort by')
+        cy.get('#products-orderby option').then(($options) => {
+            expect($options).to.have.length(6)
+
+            expect($options[0]).to.contain(['Position'])
+            expect($options[1]).to.contain(['Name: A to Z'])
+            expect($options[2]).to.contain(['Name: Z to A'])
+            expect($options[3]).to.contain(['Price: Low to High'])
+            expect($options[4]).to.contain(['Price: High to Low'])
+            expect($options[5]).to.contain(['Created on'])
+
+        })
+
+
+    })
+
+}
+
+
+function ResultsForPage() {
+
+    getIframeBody().within(() => {
+        cy.get('.product-page-size').should('contain', 'Show results for page')
+
+        cy.get('#products-pagesize option').then(($options) => {
+            expect($options).to.have.length(4)
+
+            expect($options[0]).to.contain(['10'])
+            expect($options[1]).to.contain(['20'])
+            expect($options[2]).to.contain(['50'])
+            expect($options[3]).to.contain(['60'])
+
+
+        })
+
+
+    })
+
+}
+
+function GridViewLayout() {
+    getIframeBody().within(() => {
+
+        cy.get('.product-viewmode').should('have.class', 'active')
+
+
+    })
+}
+
+function clickByPImage() {
+
+    getIframeBody().within(() => {
+        cy.get('[alt="Picture of Apple MacBook Pro 13-inch"]').eq(0).click()
+        waitforLoad()
+    })
+}
+
+function clickByPName(pName) {
+
+    getIframeBody().within(() => {
+        cy.contains(pName).click()
+        waitforLoad()
+    })
+}
+
+function navigateToNewpage(pName) {
+
+    getIframeBody().within(() => {
+
+        cy.get('.product-name').then(($productMatch) => {
+            expect($productMatch).to.have.text(pName)
+        })
+
+
     })
 
 }
@@ -51,6 +142,12 @@ module.exports = {
 
     getSearch,
     clickSearchButton,
-    searchTerm,
-    navigateToAdvanceSearchInValidProductName
+    search,
+    navigateToAdvanceSearchInValidProductName,
+    sortBy,
+    ResultsForPage,
+    GridViewLayout,
+    clickByPImage,
+    clickByPName,
+    navigateToNewpage
 }
