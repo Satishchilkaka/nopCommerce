@@ -14,7 +14,11 @@ run `yarn` in the project root to install dependencies
 
 `yarn test`
 
-# Documentation
+## Test results dir
+
+`"reports\mochawesome.html",`
+
+## Guides
 
 Guides: https://docs.cypress.io/guides/overview/why-cypress.html
 
