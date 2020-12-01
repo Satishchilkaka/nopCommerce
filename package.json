@@ -5,6 +5,7 @@
   "author": "SatishChilkaka",
   "scripts": {
     "test": "yarn cypress run --spec  'cypress/integration/search.spec.js'",
+    "test-head": "yarn cypress run --spec  'cypress/integration/search.spec.js' --browser chrome",
     "open": "yarn cypress open"
   },
   "devDependencies": {

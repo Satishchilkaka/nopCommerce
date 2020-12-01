@@ -12,7 +12,9 @@ run `yarn` in the project root to install dependencies
 
 ## Running tests
 
-`yarn test`
+headless:`yarn test`
+head: `test-head`
+
 
 ## Test results dir
 
