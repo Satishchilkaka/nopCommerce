@@ -2,12 +2,13 @@
   "name": "cypress-yarn",
   "version": "1.0.0",
   "description": "nopCommerce",
+  "author": "SatishChilkaka",
   "scripts": {
     "test": "yarn cypress run --spec  'cypress/integration/search.spec.js'",
     "open": "yarn cypress open"
   },
   "devDependencies": {
-    "author": "SatishChilkaka",
+    
     "cypress": "^6.0.0",
     "license": "MIT",
     "mocha-junit-reporters": "^1.23.6",
