@@ -16,7 +16,7 @@ run `yarn` in the project root to install dependencies
 
 ## Test results dir
 
-`"reports\mochawesome.html",`
+`./reports/mochawesome.html`
 
 ## Guides
 
