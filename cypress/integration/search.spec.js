@@ -24,7 +24,7 @@ describe('Verify search and advance search', () => {
         cy.visit('')
     })
 
-    describe('Home Search buttn', function () {
+    describe('Home Search button', function () {
 
 
         it('Search input field', function () {
@@ -157,7 +157,7 @@ describe('Verify search and advance search', () => {
 
         })
 
-        
+
         it('Search multiple words in the search filed', () => {
             let Searchterm = faker.commerce.productName()
 
