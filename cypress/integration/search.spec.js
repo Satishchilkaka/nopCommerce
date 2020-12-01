@@ -1,3 +1,4 @@
+
 var faker = require('faker')
 import search from './searchObj/search.js'
 
@@ -54,7 +55,7 @@ describe('Verify search and advance search', () => {
 
                 cy.wrap($body)
                     .find('.search-box-button').click().should(function () {
-                        expect(this.windowAlert).to.be.calledWith('Search term minimum length is  one character')
+                        expect(this.windowAlert).to.be.calledWith('Search term minimum length is one character')
                         //expect(this.windowAlert).to.be.calledWith('Please enter some search keyword')
                     })
             })
@@ -145,8 +146,6 @@ describe('Verify search and advance search', () => {
                 cy.wait(2000)
                 cy.get('.search-box-button').click()
                 cy.wait(2000)
-
-
             })
 
             searchAsserations.getResults()
@@ -158,6 +157,7 @@ describe('Verify search and advance search', () => {
 
         })
 
+        
         it('Search multiple words in the search filed', () => {
             let Searchterm = faker.commerce.productName()
 

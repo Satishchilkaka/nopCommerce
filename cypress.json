@@ -7,7 +7,7 @@
     "pageLoadTimeout": 30000,
     "responseTimeout": 10000,
     "video": false,
-    "projectId": "noP",
+    "projectId": "nopcommerce",
     "reporter": "cypress-multi-reporters",
     "reporterOptions": {
         "configFile": "reporterOpts.json"
