@@ -16,7 +16,9 @@ run `yarn` in the project root to install dependencies
 
 ## Test results dir
 
-`./reports/mochawesome.html`
+Test report:`./reports/mochawesome.html`
+
+screenshot failed cases:`cypress/snapshots/actual/specName`
 
 ## Guides
 
