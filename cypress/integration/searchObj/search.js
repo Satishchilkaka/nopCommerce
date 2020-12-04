@@ -137,6 +137,39 @@ function navigateToNewpage(pName) {
 
 }
 
+var faker = require('faker')
+
+
+const getIframeDocument = () => {
+    return cy
+        .get('iframe')
+
+        .its('0.contentDocument').should('exist')
+}
+const getIframeBody = () => {
+    return getIframeDocument()
+        .its('body').should('not.be.undefined')
+
+        .then(cy.wrap)
+}
+
+function fillRegForm() {
+
+    getIframeBody().within(() => {
+
+        cy.get('.ico-register').should('have.attr', 'href')
+        cy.get('.ico-register').click()
+
+        cy.get('h1', { timeout: 10000 }).should('be.visible');
+        cy.get('h1').should('have.text', 'Register')
+        cy.get('.Register').then(($el) => {
+            except($el).to.have.text('Register')
+        })
+
+    })
+}
+
+
 
 module.exports = {
 
@@ -149,5 +182,6 @@ module.exports = {
     GridViewLayout,
     clickByPImage,
     clickByPName,
-    navigateToNewpage
+    navigateToNewpage,
+    fillRegForm
 }

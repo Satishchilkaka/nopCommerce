@@ -26,8 +26,9 @@ describe('it should Verify search and advance search', () => {
     })
 
     it('It should navigate to registraton form', () => {
-        
-    })
 
+        search.fillRegForm()
+
+    })
 
 })
