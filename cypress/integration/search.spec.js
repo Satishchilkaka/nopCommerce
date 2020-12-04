@@ -17,7 +17,7 @@ const getIframeBody = () => {
         .then(cy.wrap)
 }
 
-describe('Verify search and advance search', () => {
+describe('it should Verify search and advance search', () => {
 
     let randomSearch = faker.random.alphaNumeric(5)
     beforeEach(() => {
