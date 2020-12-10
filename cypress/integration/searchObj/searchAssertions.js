@@ -111,7 +111,7 @@ function getCategoryValues() {
             expect($options[4]).to.contain(['Apparel >> Accessories'])
             expect($options[5]).to.contain(['Books'])
             expect($options[6]).to.contain(['Computers'])
-            expect($options[7]).to.contain(['AlComputers >> Desktops'])
+            expect($options[7]).to.contain(['Computers >> Desktops'])
             expect($options[8]).to.contain(['Computers >> Notebooks'])
             expect($options[9]).to.contain(['Computers >> Software'])
             expect($options[10]).to.contain(['Electronics'])
