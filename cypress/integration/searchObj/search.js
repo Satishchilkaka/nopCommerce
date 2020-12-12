@@ -137,22 +137,10 @@ function navigateToNewpage(pName) {
 
 }
 
-var faker = require('faker')
-
-
-const getIframeDocument = () => {
-    return cy
-        .get('iframe')
-
-        .its('0.contentDocument').should('exist')
-}
-const getIframeBody = () => {
-    return getIframeDocument()
-        .its('body').should('not.be.undefined')
-
-        .then(cy.wrap)
-}
-
+/* cy.waitUntil(() => cy.get("input[type=hidden]#recaptchatoken").then($el => $el.val()))
+    // ... then, check that it's valid string asserting about it
+    .then(token => expect(token).to.be.a("string").to.have.length.within(1, 1000));
+ */
 function fillRegForm() {
 
     getIframeBody().within(() => {
@@ -160,7 +148,11 @@ function fillRegForm() {
         cy.get('.ico-register').should('have.attr', 'href')
         cy.get('.ico-register').click()
 
-        cy.get('h1', { timeout: 10000 }).should('be.visible');
+        page.page.waitForNavigation()
+        /* cy.waitUntil(() => cy.get('.page-title').then(($el) => {
+            expect($el).to.contain('Register')
+        })) */
+
         cy.get('h1').should('have.text', 'Register')
         cy.get('.Register').then(($el) => {
             except($el).to.have.text('Register')
