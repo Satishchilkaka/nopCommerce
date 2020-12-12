@@ -4,13 +4,13 @@
   "description": "nopCommerce",
   "author": "SatishChilkaka",
   "scripts": {
-    "test": "yarn cypress run --spec  'cypress/integration/search.spec.js'",
+    "test": "yarn cypress run --spec  'cypress/integration/reg.spec.js'",
     "test-head": "yarn cypress run --spec  'cypress/integration/search.spec.js' --browser chrome",
     "open": "yarn cypress open"
   },
   "devDependencies": {
-    
     "cypress": "^6.0.0",
+    "cypress-wait-until": "^1.7.1",
     "license": "MIT",
     "mocha-junit-reporters": "^1.23.6",
     "mochawesome": "^5.0.0",
