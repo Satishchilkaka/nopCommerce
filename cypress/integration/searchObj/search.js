@@ -1,4 +1,6 @@
 
+var faker = require('faker');
+
 const getIframeDocument = () => {
     return cy
         .get('iframe')
@@ -149,18 +151,37 @@ function fillRegForm() {
         cy.get('.ico-register').should('have.attr', 'href')
         cy.get('.ico-register').click()
         cy.server();
-        cy.route('GET', 'register?returnUrl=%2F').as('get');
+        cy.route('GET', '/register?returnUrl=%2F').as('get');
 
     })
 
+    cy.visit('https://demo.nopcommerce.com/register?returnUrl=%2F')
+    cy.get('.page-title').should('have.text', 'Register')
+    cy.get('.title').eq(0).should('have.text', 'Your Personal Details')
 
-    getIframeBody().within(() => {
-        cy.wait('@get').then(() => {
-            getIframeBody().find('.page-title', { timeout: 10000 }).should('be.visible');
-            getIframeBody().find('.page-title').should('have.text', 'Register')
-
-        })
+    cy.get('#gender-male').check().then(($el) => {
+        expect($el).to.have.value('M')
     })
+
+    let firstName = faker.name.firstName()
+    let lastName = faker.name.lastName()
+    let day = Math.floor(Math.random() * 31) + 1
+    cy.get('#FirstName').type(firstName)
+    cy.get('#LastName').type(lastName)
+    cy.get('.date-picker-wrapper').select(day).then(($el) => {
+        expect($el).to.be.empty
+    })
+
+
+
+
+    /*   getIframeBody().within(() => {
+          cy.wait('@get').then(() => {
+              getIframeBody().find('.page-title', { timeout: 10000 }).should('be.visible');
+              getIframeBody().find('.page-title').should('have.text', 'Register')
+  
+          })
+      }) */
     /* cy.waitUntil(() => cy.get('.page-title').then(($el) => {
         expect($el).to.contain('Register')
     })) */
