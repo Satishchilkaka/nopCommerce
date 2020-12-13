@@ -1,3 +1,4 @@
+
 const getIframeDocument = () => {
     return cy
         .get('iframe')
@@ -147,18 +148,27 @@ function fillRegForm() {
 
         cy.get('.ico-register').should('have.attr', 'href')
         cy.get('.ico-register').click()
-
-        page.page.waitForNavigation()
-        /* cy.waitUntil(() => cy.get('.page-title').then(($el) => {
-            expect($el).to.contain('Register')
-        })) */
-
-        cy.get('h1').should('have.text', 'Register')
-        cy.get('.Register').then(($el) => {
-            except($el).to.have.text('Register')
-        })
+        cy.server();
+        cy.route('GET', 'register?returnUrl=%2F').as('get');
 
     })
+
+
+    getIframeBody().within(() => {
+        cy.wait('@get').then(() => {
+            getIframeBody().find('.page-title', { timeout: 10000 }).should('be.visible');
+            getIframeBody().find('.page-title').should('have.text', 'Register')
+
+        })
+    })
+    /* cy.waitUntil(() => cy.get('.page-title').then(($el) => {
+        expect($el).to.contain('Register')
+    })) */
+
+
+
+
+
 }
 
 
