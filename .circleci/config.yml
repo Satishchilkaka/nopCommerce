@@ -20,19 +20,13 @@ jobs:
 
       - run: yarn test
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ "package.json" }}
-
-      # we need to install CircleCI CLI tool
-      # to run the "manual" tests
-      - circleci-cli/install
-      - run: npm test
-      - run: npm run manual:tests
-      - run: npm run docs
+    
 
 workflows:
   orb_tests:
     jobs:
     - build
+    jobs:
+      - cypress/install:
+           build: "yarn install"
+      - cypress/run: yarn test
