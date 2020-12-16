@@ -1,32 +1,13 @@
 version: 2.1
 orbs:
-  circleci-cli: circleci/circleci-cli@0.1.8
+  node: circleci/node@1.1
 jobs:
   build:
-    docker:
-      - image: circleci/node:10
-
-    working_directory: ~/repo
-
+    executor:
+      name: node/default
+      tag: '10.4'
     steps:
-      - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
+      
+          steps:
+            - run: yarn install
       - run: yarn test
-
-    
-
-workflows:
-  orb_tests:
-    jobs:
-    - build
-    jobs:
-      - cypress/install:
-           build: "yarn install"
-      - cypress/run: yarn test
