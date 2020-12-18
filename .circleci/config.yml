@@ -8,7 +8,6 @@ workflows:
           name: Nop Commerce search function 0
           yarn: true
           command: yarn test
-          
           browser: chrome
       - cypress/run:
           name: Nop Commerce search function
