@@ -1,6 +1,5 @@
 node_modules
 yarn-error.log
 cypress/reports/assets
-yarn.lock
 
 debug.log
