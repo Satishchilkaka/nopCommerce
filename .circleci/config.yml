@@ -4,4 +4,7 @@ orbs:
 workflows:
   build:
     jobs:
-      - cypress/run
+      - cypress/install:
+          name: Install
+          yarn: true
+          executor: cypress/base-12-14-0
