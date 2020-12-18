@@ -1,11 +1,14 @@
 version: 2.1
 orbs:
-  node: circleci/node@1.1
-jobs:
+  cypress: cypress-io/cypress@1
+workflows:
   build:
-    executor:
-      name: node/default
-      tag: '10.4'
-    steps:
-      - run: yarn install
-      - run: yarn test
+    jobs:
+      - cypress/run:
+          yarn: true
+          install-command: yarn install
+       - cypress/run:
+          executor: cypress/browsers-chrome69
+          browser: chrome
+        - cypress/run:
+            -run: yarn test
