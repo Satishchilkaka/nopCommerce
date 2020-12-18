@@ -4,5 +4,4 @@ orbs:
 workflows:
   build:
     jobs:
-      - cypress/run:
-          install-command: yarn install --frozen-lockfile
+      - cypress/run
