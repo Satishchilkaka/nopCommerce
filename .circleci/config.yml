@@ -5,7 +5,13 @@ workflows:
   build:
     jobs:
       - cypress/run:
-          name: NpCoem
+          name: Nop Commerce search function 0
+          yarn: true
+          command: yarn test
+          excutor: cypress/browsers-chrome87
+          browser: chrome
+      - cypress/run:
+          name: Nop Commerce search function
           yarn: true
           command: yarn test
           

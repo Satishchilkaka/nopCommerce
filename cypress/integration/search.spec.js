@@ -231,7 +231,7 @@ describe('Verify search and advance search', () => {
 
     })
 
-    describe('Verify advance search', () => {
+    describe.skip('Verify advance search', () => {
 
         let productName = 'Book';
 
@@ -360,7 +360,7 @@ describe('Verify search and advance search', () => {
 
     })
 
-    describe('Filters and results', () => {
+    describe.skip('Filters and results', () => {
         let productName = 'Book';
         const pName = 'Apple MacBook Pro 13-inch'
 
