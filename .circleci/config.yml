@@ -2,9 +2,9 @@ version: 2.1
 jobs:
   build:
   steps:
-    - run:
+    -run:
       name: Install Dependencies
       command: yarn install --frozen-lockfile
-     - run:
-       name: run test 
-       command: yarn test
+     -run:
+      name: run test
+      command: yarn test
