@@ -5,4 +5,4 @@ workflows:
   build:
     jobs:
       - cypress/run:
-          start: yarn test
+          start: yarn install
