@@ -1,6 +1,7 @@
 version: 2.1
-jobs:
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
   build:
-  steps:
-    - run:
-        name: Install Dependencies
+    jobs:
+      - cypress/install:
