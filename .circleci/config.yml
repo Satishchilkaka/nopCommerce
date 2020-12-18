@@ -1,8 +1,8 @@
 version: 2.1
-orbs:
-  cypress: cypress-io/cypress@1
-workflows:
+jobs:
   build:
-    jobs:
-      - cypress/run:
-          yarn: true
+  steps:
+    - run:
+      name: Install Dependencies
+      command: yarn install --frozen-lockfile
+     - run: yarn test
