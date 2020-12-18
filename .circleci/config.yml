@@ -5,10 +5,4 @@ workflows:
   build:
     jobs:
       - cypress/run:
-          yarn: true
-          install-command: yarn install
-       - cypress/run:
-          executor: cypress/browsers-chrome69
-          browser: chrome
-        - cypress/run:
-            -run: yarn test
+          verify-command: yarn cypress verify
