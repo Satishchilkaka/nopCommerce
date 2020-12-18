@@ -3,8 +3,8 @@ jobs:
   build:
   steps:
     -run:
-      name: Install Dependencies
-      command: yarn install --frozen-lockfile
+        name: Install Dependencies
+        command: yarn install --frozen-lockfile
      -run:
-      name: run test
-      command: yarn test
+        name: run test
+        command: yarn test
