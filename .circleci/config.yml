@@ -5,4 +5,4 @@ workflows:
   build:
     jobs:
       - cypress/run:
-          install-command: npm install
+          install-command: yarn install
